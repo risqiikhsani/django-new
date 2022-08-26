@@ -1,0 +1,111 @@
+from http import server
+from os import stat
+from django.shortcuts import render
+from django.shortcuts import get_object_or_404, get_list_or_404
+# Create your views here.
+
+from django.db.models import Q
+
+
+from rest_framework import generics, mixins
+from rest_framework.response import Response
+from rest_framework import response, decorators, permissions, status
+from rest_framework.parsers import JSONParser, MultiPartParser, FormParser
+
+from permissions import IsOwnerOrReadOnly
+
+from .serializers import (
+	Account_Serializer,
+
+)
+
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
+
+# Token
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
+
+
+
+from .models import *
+
+
+
+
+# from .serializers import PostList_Serializer
+# class PostList_API(generics.GenericAPIView):
+# 	serializer_class = PostList_Serializer
+# 	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+	
+# 	def get_queryset(self):
+# 		if 'user_id' in self.kwargs:
+# 			return Post.objects.all().filter(poster=self.kwargs['user_id'])
+# 		elif not self.request.query_params:
+# 			return Post.objects.all()
+# 		else:
+# 			search = ""
+# 			if 'search' in self.request.query_params:
+# 				search = self.request.query_params['search']
+# 			# friend_only = self.request.query_params['friend_only']
+# 			# likes = self.request.query_params['likes']
+# 			# tags = self.request.query_params['tags']
+# 			result = Post.objects.all().filter(
+# 				Q(text__icontains=search)  
+# 			)
+# 			return result
+
+# 	def get(self, request, *args , **kwargs):
+# 		queryset = self.get_queryset()
+# 		serializer = PostList_Serializer(queryset, many=True ,context={'request': request})
+# 		return Response(serializer.data, status=status.HTTP_200_OK)
+
+# 	def post(self, request, *args, **kwargs):
+# 		serializer = self.get_serializer(data=request.data, context={'request':request})
+# 		if serializer.is_valid():
+# 			serializer.save()
+# 			return Response("success", status=status.HTTP_201_CREATED)
+# 		else:
+# 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+# from .serializers import PostDetail_Serializer
+# class PostDetail_API(generics.GenericAPIView):
+# 	serializer_class = PostDetail_Serializer
+# 	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+# 	def get_queryset(self):
+# 		return get_object_or_404(Post, id=self.kwargs['id'])
+
+# 	def get(self,request,*args,**kwargs):
+# 		queryset= self.get_queryset()
+# 		serializer =self.get_serializer(queryset)
+# 		return Response(serializer.data, status=status.HTTP_200_OK)
+
+# 	def put(self,request,*args,**kwargs):
+# 		queryset=self.get_queryset()
+
+# 		# if poster
+# 		if request.user == queryset.poster:
+# 			serializer = self.get_serializer(instance=queryset,data=request.data)
+# 			if serializer.is_valid():
+# 				serializer.save()
+# 				return Response("updated", status=status.HTTP_201_CREATED)
+# 			else:
+# 				return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# 		# if not poster or if not logged in
+# 		else:
+# 			return Response("Unauthorized!",status=status.HTTP_401_UNAUTHORIZED)
+
+
+# 	def delete(self, request,*args,**kwargs):
+# 		queryset= self.get_queryset()
+# 		if request.user == queryset.poster:
+# 			queryset.delete()
+# 			return Response("deleted",status=status.HTTP_201_CREATED)
+# 		else:
+# 			return Response("Unauthorized",status=status.HTTP_401_UNAUTHORIZED)
+	
