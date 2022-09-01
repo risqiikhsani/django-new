@@ -1,10 +1,48 @@
 from django.contrib import admin
 
-# Register your models here.
-from .models import *
+from .models import Account, Post, Comment, Reply, Like
 
 
-admin.site.register(Account)
-admin.site.register(Post)
-admin.site.register(Comment)
-admin.site.register(Reply)
+@admin.register(Account)
+class AccountAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'user',
+        'name',
+        'public_username',
+        'profile_picture',
+        'poster_picture',
+    )
+    list_filter = ('user',)
+    search_fields = ('name',)
+
+
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'text', 'time_creation')
+    list_filter = ('time_creation',)
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('id', 'post', 'user', 'text', 'time_creation')
+    list_filter = ('post', 'user', 'time_creation')
+
+
+@admin.register(Reply)
+class ReplyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'comment', 'user', 'text', 'time_creation')
+    list_filter = ('comment', 'user', 'time_creation')
+
+
+@admin.register(Like)
+class LikeAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'user',
+        'post',
+        'comment',
+        'reply',
+        'time_creation',
+    )
+    list_filter = ('user', 'post', 'comment', 'reply', 'time_creation')

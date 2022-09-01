@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'post.apps.PostConfig',
     'rest_framework',
     'corsheaders',
+    'django_extensions',
 
 
 
