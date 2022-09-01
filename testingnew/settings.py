@@ -34,13 +34,13 @@ INSTALLED_APPS = [
     'post.apps.PostConfig',
     'rest_framework',
     'corsheaders',
-<<<<<<< HEAD
+
     'django_extensions',
 
-=======
+
    
     'versatileimagefield',
->>>>>>> refs/remotes/origin/master
+
 
 
     'django.contrib.admin',
