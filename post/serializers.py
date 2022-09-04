@@ -1,17 +1,32 @@
+import profile
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from .models import *
 
 
-
+from versatileimagefield.serializers import VersatileImageFieldSerializer
 
 
 
 class Account_Serializer(serializers.ModelSerializer):
+	profile_picture = VersatileImageFieldSerializer(
+		sizes=[
+			('full_size', 'url'),
+            ('small', 'thumbnail__200x200'),
+            ('medium', 'thumbnail__400x400'),
+		]
+	)
+	poster_picture = VersatileImageFieldSerializer(
+		sizes=[
+			('full_size', 'url'),
+            ('small', 'thumbnail__200x200'),
+            ('medium', 'thumbnail__400x400'),
+		]
+	)
 	class Meta:
 		model = Account
-		fields = ['name','public_username','profile_picture']
+		fields = ['name','public_username','profile_picture','profile_picture','poster_picture']
 
 class User_Serializer(serializers.ModelSerializer):
 	account = Account_Serializer()
