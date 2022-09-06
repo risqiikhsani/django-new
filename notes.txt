@@ -1,0 +1,38 @@
+issue
+
+
+1. ERROR when transfer data from MYSQL to PROSGEST
+
+ways = 
+    #https://pythonfusion.com/mysql-to-postgresql-database-django-on-shared-hosting/
+    (used way) #https://www.coderedcorp.com/blog/how-to-dump-your-django-database-and-load-it-into-/
+
+
+before transfer data = write seperate django database in settings.py
+then after transfer data you can make posgrest to default
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'pgsql':{
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'somethingnew',
+        'USER': 'postgres',
+        'PASSWORD': '123456',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
+
+python manage.py migrate --database=pgsql
+python manage.py flush --database==pgsql
+python manage.py dumpdata --natural-foreign --exclude auth.permission --exclude contenttypes --indent 4 > data.json
+python manage.py loaddata data.json --database=pgsql <<<<< ERROR
+
+solved by = 
+1. make the data.json file to be UTF-8 format (when all data changed to randomw words , just CTRL + Z)
+2. commenting out first all the signals.py then loaddata
+
