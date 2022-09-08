@@ -37,14 +37,8 @@ INSTALLED_APPS = [
     'post.apps.PostConfig',
     'rest_framework',
     'corsheaders',
-
     'django_extensions',
-
-
-   
     'versatileimagefield',
-
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -124,21 +118,21 @@ WSGI_APPLICATION = 'testingnew.wsgi.application'
 #     },
 #     'live-pgsql':{
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': '',
-#         'USER': '',      
-#         'PASSWORD': '',   
-#         'HOST': '',
-#         'PORT': '',
+#         'NAME': 'live_database', 
+#         'USER': 'postgres',      
+#         'PASSWORD': '12345678',   
+#         'HOST': 'rds2.ckwcjfs4ynh8.ap-southeast-1.rds.amazonaws.com',
+#         'PORT': '5432',
 #     },
 # }
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'somethingnew',
-        'USER': 'postgres',     # default user 
-        'PASSWORD': '123456',   
-        'HOST': 'localhost',
+        'NAME': 'live_database', 
+        'USER': 'postgres',      
+        'PASSWORD': '12345678',   
+        'HOST': 'rds2.ckwcjfs4ynh8.ap-southeast-1.rds.amazonaws.com',
         'PORT': '5432',
     },
 }
