@@ -26,9 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'somethingnew-testing.herokuapp.com',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -61,13 +64,9 @@ REST_FRAMEWORK = {
 
 
 MIDDLEWARE = [
-    #corsheaders
-    'corsheaders.middleware.CorsMiddleware',
-    "django.middleware.common.CommonMiddleware",
-
-
-
-    'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',    #corsheaders
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",   #whitenoise
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -117,23 +116,19 @@ WSGI_APPLICATION = 'testingnew.wsgi.application'
 #         'PORT': '5432',
 #     },
 #     'live-pgsql':{
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'live_database', 
-#         'USER': 'postgres',      
-#         'PASSWORD': '12345678',   
-#         'HOST': 'rds2.ckwcjfs4ynh8.ap-southeast-1.rds.amazonaws.com',
-#         'PORT': '5432',
-#     },
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'live_database', 
+    #     'USER': str(os.getenv('AWS_RDS_USERNAME')),      
+    #     'PASSWORD': str(os.getenv('AWS_RDS_PASSWORD')),   
+    #     'HOST': 'rds2.ckwcjfs4ynh8.ap-southeast-1.rds.amazonaws.com',
+    #     'PORT': '5432',
+    # },
 # }
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'live_database', 
-        'USER': str(os.getenv('AWS_RDS_USERNAME')),      
-        'PASSWORD': str(os.getenv('AWS_RDS_PASSWORD')),   
-        'HOST': 'rds2.ckwcjfs4ynh8.ap-southeast-1.rds.amazonaws.com',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     },
 }
 
