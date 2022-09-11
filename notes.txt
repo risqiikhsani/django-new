@@ -36,3 +36,34 @@ solved by =
 1. make the data.json file to be UTF-8 format (when all data changed to randomw words , just CTRL + Z)
 2. commenting out first all the signals.py then loaddata
 
+___________________________________________________________________________________________________
+about dotenv
+
+https://stackoverflow.com/questions/63819521/when-deploying-django-to-heroku-modulenotfounderror-no-module-named-dotenv
+
+The purpose of dotenv is to "read key-value pairs from a .env file and set them as environment variables"
+
+Typically the purpose of having a .env file is to have a convenient way of managing your environment locally.
+
+Typically this is not checked into version control (i.e. it is listed in .gitignore). The benefits are:
+
+    Your sensitive environment variables can not be seen by others
+    In production you might want to be able to change these variables without re-deploying
+    Different people can run the app in different environments
+
+Therefore when you deploy to Heroku you typically don't include your .env, and so dotenv has nothing to do.
+
+Instead Heroku has its own way of managing environment variables.
+
+This leaves the problem of what to do in your code where trying to call dotenv on Heroku would give errors like you describe.
+
+One option is to only load it if the environment is not production. Something like this:
+
+import os
+
+if not os.environ.get("PRODUCTION"):
+    from dotenv import load_dotenv
+
+    load_dotenv()
+
+Note that you need to set the PRODUCTION environment variable on Heroku, or pick a variable that is already there.
