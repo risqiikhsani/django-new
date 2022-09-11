@@ -130,8 +130,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'live_database', 
-        'USER': 'postgres',      
-        'PASSWORD': '12345678',   
+        'USER': str(os.getenv('AWS_RDS_USERNAME')),      
+        'PASSWORD': str(os.getenv('AWS_RDS_PASSWORD')),   
         'HOST': 'rds2.ckwcjfs4ynh8.ap-southeast-1.rds.amazonaws.com',
         'PORT': '5432',
     },
