@@ -37,14 +37,8 @@ INSTALLED_APPS = [
     'post.apps.PostConfig',
     'rest_framework',
     'corsheaders',
-
     'django_extensions',
-
-
-   
     'versatileimagefield',
-
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
