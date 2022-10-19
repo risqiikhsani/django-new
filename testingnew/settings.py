@@ -83,7 +83,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'testingnew.urls'
-AUTH_USER_MODEL = 'Post.User'
+# AUTH_USER_MODEL = 'Post.User'
 
 TEMPLATES = [
     {

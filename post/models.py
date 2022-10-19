@@ -1,4 +1,5 @@
-from typing_extensions import Required
+
+from django.conf import settings
 from django.db import models
 
 # Create your models here.
@@ -7,6 +8,7 @@ from django.contrib.auth import get_user_model
 from versatileimagefield.fields import VersatileImageField
 
 User = get_user_model()
+# User = settings.AUTH_USER_MODEL
 
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
@@ -15,8 +17,8 @@ from phonenumber_field.modelfields import PhoneNumberField
 # also register the model in app's admin.py
 # it's recommended that you set it before there's a database 
 # run migrate afterwards 
-class User(AbstractUser):
-	phone_number = PhoneNumberField(required=False)
+# class User(AbstractUser):
+# 	phone_number = PhoneNumberField(required=False)
 
 
 
@@ -41,6 +43,10 @@ class Account(models.Model):
 
 	def __str__(self):
 		return str(self.id)
+
+
+
+
 
 class Post(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
