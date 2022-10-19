@@ -1,0 +1,46 @@
+connect to postgresql (local) 			V
+connect to postgresql (cloud rd2)		V
+
+connect to database storage (local ./media)	V
+connect to database storage (cloud s3)		V
+
+backup database / transfer database from Posgrest to Posgrest , or from Posgrest to mysql (vice versa) ?
+
+other django libraries like : 
+		- django filter
+		-
+other DRF libraries like :
+		-
+		-		
+
+change password when user logged in,
+forgot/reset password when user not logged in,
+OAUTH2 -> new auth method
+
+checking user credentials = auth when someone try to log in in different place . like tokopedia need to confirm by code in sms OR like ovo needs to confirm secret number
+
+email verification	-> for security ?
+number verification 	-> for security ?
+
+sending email -> for when user forgot the password in login screen
+		for when user want to change email adress
+
+create integration to whatsapp / discord bot ?
+
+some codes of user base manager?
+
+websocket -> chat
+
+webRTC -> video / audio call ?
+
+
+
+
+sending files (like audio or pdf or doc) in chat app or the app
+		
+QR AUTH ?
+
+graphQL ?
+
+different user roles , etc admin panel , paid-user panel , basic-user panel
+

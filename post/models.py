@@ -1,3 +1,4 @@
+from typing_extensions import Required
 from django.db import models
 
 # Create your models here.
@@ -6,6 +7,19 @@ from django.contrib.auth import get_user_model
 from versatileimagefield.fields import VersatileImageField
 
 User = get_user_model()
+
+from django.contrib.auth.models import AbstractUser
+from phonenumber_field.modelfields import PhoneNumberField
+# when creating custom user model
+# dont forget to add AUTH_USER_MODEL in settings.py
+# also register the model in app's admin.py
+# it's recommended that you set it before there's a database 
+# run migrate afterwards 
+class User(AbstractUser):
+	phone_number = PhoneNumberField(required=False)
+
+
+
 
 class Account(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)

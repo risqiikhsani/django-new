@@ -36,6 +36,7 @@ class User_Serializer(serializers.ModelSerializer):
 		fields = ['id','account']
 
 class PostList_Serializer(serializers.ModelSerializer):
+	user = User_Serializer()
 	class Meta:
 		model = Post
 		fields = '__all__'

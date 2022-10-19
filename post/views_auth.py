@@ -61,3 +61,23 @@ class Login(generics.GenericAPIView):
 			}
 
 			return Response(data,status=status.HTTP_201_CREATED)
+
+
+from .serializers_auth import ChangePassword_Serializer
+class ChangePassword(generics.GenericAPIView):
+	serializer_class = ChangePassword_Serializer
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+	def get_queryset(self):
+		return get_object_or_404(User, id=self.request.user.id)
+
+	def put(self,request,*args,**kwargs):
+		queryset=self.get_queryset()
+
+		serializer = self.get_serializer(instance=queryset,context={'request':request},data=request.data)
+		if serializer.is_valid(raise_exception=True):
+			serializer.save()
+			return Response("updated", status=status.HTTP_201_CREATED)
+		else:
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

@@ -45,3 +45,33 @@ class Register_Serializer(serializers.ModelSerializer):
 		user.set_password(password)
 		user.save()
 		return user
+
+
+class ChangePassword_Serializer(serializers.ModelSerializer):
+	old_password = serializers.CharField(write_only=True,required=True)
+	password = serializers.CharField(write_only=True,required=True)
+	confirm_password = serializers.CharField(write_only=True,required=True)
+	class Meta:
+		model = User
+		fields = [
+			"old_password",
+			"password",
+			"confirm_password",
+		]
+
+	def validate(self,attrs):
+		if attrs['password'] != attrs['confirm_password']:
+			raise serializers.ValidationError({"password": "Password fields didn't match."})
+
+		return attrs
+
+	def validate_old_password(self,value):
+		user = self.context['request'].user
+		if not user.check_password(value):
+			raise serializers.ValidationError({"old_password": "Old password is not correct"})
+		return value
+
+	def update(self,instance,validated_data):
+		instance.set_password(validated_data['password'])
+		instance.save()
+		return instance

@@ -20,6 +20,8 @@ from .permissions import IsOwnerOrReadOnly
 from .models import *
 
 
+from django_filters.rest_framework import DjangoFilterBackend
+
 @api_view(['GET'])
 def api_root(request, format=None):
 	return Response({
@@ -42,21 +44,26 @@ class UserList(mixins.ListModelMixin,generics.GenericAPIView):
 
 
 from .serializers import PostList_Serializer
+from .filters import PostFilter
 class PostList(mixins.ListModelMixin,
 				  mixins.CreateModelMixin,
 				  generics.GenericAPIView):
 	serializer_class = PostList_Serializer
 	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+	queryset = Post.objects.all()
+	filter_backends = {DjangoFilterBackend,}
+	filterset_class = PostFilter
+
 	
-	def get_queryset(self):
-		if 'user_id' in self.kwargs:
-			return Post.objects.all().filter(user=self.kwargs['user_id'])
-		elif 'search' in self.request.query_params:
-			return Post.objects.all().filter(
-				Q(text__icontains=self.request.query_params['search'])  
-			)
-		else:
-			return Post.objects.all()
+	# def get_queryset(self):
+	# 	if 'user_id' in self.kwargs:
+	# 		return Post.objects.all().filter(user=self.kwargs['user_id'])
+	# 	elif 'search' in self.request.query_params:
+	# 		return Post.objects.all().filter(
+	# 			Q(text__icontains=self.request.query_params['search'])  
+	# 		)
+	# 	else:
+	# 		return Post.objects.all()
 
 
 	def get(self, request, *args, **kwargs):

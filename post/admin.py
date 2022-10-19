@@ -3,6 +3,11 @@ from django.contrib import admin
 from .models import Account, Post, Comment, Reply, Like
 
 
+
+from django.contrib.auth.admin import UserAdmin
+from .models import User
+admin.site.register(User, UserAdmin)
+
 @admin.register(Account)
 class AccountAdmin(admin.ModelAdmin):
     list_display = (

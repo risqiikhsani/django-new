@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'storages',
+    'django_filters',
+    'phonenumber_field',
 ]
 
 CORS_ORIGIN_WHITELIST = []
@@ -61,7 +63,12 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
+from datetime import timedelta
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=3),
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',    #corsheaders
@@ -76,6 +83,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'testingnew.urls'
+AUTH_USER_MODEL = 'Post.User'
 
 TEMPLATES = [
     {
@@ -267,3 +275,10 @@ VERSATILEIMAGEFIELD_RENDITION_KEY_SETS = {
 #######################################
 
 
+#SMTP CONFIGURATION
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
+EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
